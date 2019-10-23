@@ -16,11 +16,9 @@
         column-enforce-mode
         (hide-comnt :location local)
         highlight-numbers
-        highlight-parentheses
         ;; waiting for an overlay bug to be fixed
         ;; see https://github.com/syl20bnr/spacemacs/issues/2529
         (hl-anything :excluded t)
-        rainbow-delimiters
         volatile-highlights
         ))
 
@@ -64,23 +62,6 @@
       (add-hook 'prog-mode-hook 'highlight-numbers-mode)
       (add-hook 'asm-mode-hook (lambda () (highlight-numbers-mode -1))))))
 
-(defun spacemacs-editing-visual/init-highlight-parentheses ()
-  (use-package highlight-parentheses
-    :defer t
-    :init
-    (progn
-      (when (member dotspacemacs-highlight-delimiters '(all current))
-        (add-hook 'prog-mode-hook #'highlight-parentheses-mode))
-      (setq hl-paren-delay 0.2)
-      (spacemacs/set-leader-keys "tCp" 'highlight-parentheses-mode)
-      (setq hl-paren-colors '("Springgreen3"
-                              "IndianRed1"
-                              "IndianRed3"
-                              "IndianRed4")))
-    :config
-    (spacemacs|hide-lighter highlight-parentheses-mode)
-    (set-face-attribute 'hl-paren-face nil :weight 'ultra-bold)))
-
 (defun spacemacs-editing-visual/init-hl-anything ()
   (use-package hl-anything
     :init
@@ -98,15 +79,6 @@
         "hr"  'hl-restore-highlights
         "hs"  'hl-save-highlights))
     :config (spacemacs|hide-lighter hl-highlight-mode)))
-
-(defun spacemacs-editing-visual/init-rainbow-delimiters ()
-  (use-package rainbow-delimiters
-    :defer t
-    :init
-    (progn
-      (spacemacs/set-leader-keys "tCd" 'rainbow-delimiters-mode)
-      (when (member dotspacemacs-highlight-delimiters '(any all))
-        (spacemacs/add-to-hooks 'rainbow-delimiters-mode '(prog-mode-hook))))))
 
 (defun spacemacs-editing-visual/init-volatile-highlights ()
   (use-package volatile-highlights
