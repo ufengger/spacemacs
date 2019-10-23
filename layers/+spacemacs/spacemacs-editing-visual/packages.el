@@ -16,13 +16,11 @@
         auto-highlight-symbol
         column-enforce-mode
         (hide-comnt :location local)
-        highlight-indentation
         highlight-numbers
         highlight-parentheses
         ;; waiting for an overlay bug to be fixed
         ;; see https://github.com/syl20bnr/spacemacs/issues/2529
         (hl-anything :excluded t)
-        indent-guide
         rainbow-delimiters
         volatile-highlights
         ))
@@ -296,24 +294,6 @@
     :commands hide/show-comments-toggle
     :init (spacemacs/set-leader-keys "ch" 'hide/show-comments-toggle)))
 
-(defun spacemacs-editing-visual/init-highlight-indentation ()
-  (use-package highlight-indentation
-    :defer t
-    :init
-    (progn
-      (spacemacs|add-toggle highlight-indentation
-        :mode highlight-indentation-mode
-        :documentation "Highlight indentation levels."
-        :evil-leader "thi")
-      (spacemacs|add-toggle highlight-indentation-current-column
-        :mode highlight-indentation-current-column-mode
-        :documentation "Highlight indentation level at point."
-        :evil-leader "thc"))
-    :config
-    (progn
-      (spacemacs|diminish highlight-indentation-mode " ⓗi" " hi")
-      (spacemacs|diminish highlight-indentation-current-column-mode " ⓗc" " hc"))))
-
 (defun spacemacs-editing-visual/init-highlight-numbers ()
   (use-package highlight-numbers
     :defer t
@@ -356,25 +336,6 @@
         "hr"  'hl-restore-highlights
         "hs"  'hl-save-highlights))
     :config (spacemacs|hide-lighter hl-highlight-mode)))
-
-(defun spacemacs-editing-visual/init-indent-guide ()
-  (use-package indent-guide
-    :defer t
-    :init
-    (progn
-      (setq indent-guide-delay 0.3)
-      (spacemacs|add-toggle indent-guide
-        :mode indent-guide-mode
-        :documentation
-        "Highlight indentation level at point. (alternative to highlight-indentation)."
-        :evil-leader "ti")
-      (spacemacs|add-toggle indent-guide-globally
-        :mode indent-guide-global-mode
-        :documentation
-        "Highlight indentation level at point globally. (alternative to highlight-indentation)."
-        :evil-leader "t TAB"))
-    :config
-    (spacemacs|diminish indent-guide-mode " ⓘ" " i")))
 
 (defun spacemacs-editing-visual/init-rainbow-delimiters ()
   (use-package rainbow-delimiters
