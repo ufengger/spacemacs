@@ -352,18 +352,14 @@
   (interactive)
   (split-window-below)
   (windmove-down)
-  (when (and (boundp 'golden-ratio-mode)
-             (symbol-value golden-ratio-mode))
-    (golden-ratio)))
+  )
 
 (defun split-window-right-and-focus ()
   "Split the window horizontally and focus the new window."
   (interactive)
   (split-window-right)
   (windmove-right)
-  (when (and (boundp 'golden-ratio-mode)
-             (symbol-value golden-ratio-mode))
-    (golden-ratio)))
+  )
 
 (spacemacs/set-leader-keys
   "w TAB"  'spacemacs/alternate-window
@@ -539,9 +535,7 @@
  [_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_] horizontal      [_{_] shrink verti   [_d_] close current
  [_w_]^^    other window  [_R_]^^   rotate bwd  [_V_] horiz & follow  [_}_] enlarge verti  [_D_] close other
  [_o_]^^    other frame   ^^^^                  ^^                    ^^                   "
-               (if (configuration-layer/package-usedp 'golden-ratio)
-                   "[_g_] golden-ratio %`golden-ratio-mode"
-                 "")
+
                "\n ^^^^                     ^^^^                  ^^                    ^^                   [_q_] quit")
   :bindings
   ("q" nil :exit t)

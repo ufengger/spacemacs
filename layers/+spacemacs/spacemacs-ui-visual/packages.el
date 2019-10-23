@@ -12,9 +12,7 @@
 (setq spacemacs-ui-visual-packages
       '(
         (ansi-colors :location built-in)
-        fancy-battery
         fill-column-indicator
-        golden-ratio
         hl-todo
         neotree
         popup
@@ -26,17 +24,6 @@
 (defun spacemacs-ui-visual/init-ansi-colors ()
   (add-hook 'compilation-filter-hook
             'spacemacs-ui-visual//compilation-buffer-apply-ansi-colors))
-
-(defun spacemacs-ui-visual/init-fancy-battery ()
-  (use-package fancy-battery
-    :defer t
-    :init
-    (progn
-      (spacemacs|add-toggle mode-line-battery
-        :mode fancy-battery-mode
-        :documentation "Display battery info in mode-line."
-        :evil-leader "tmb")
-      (setq-default fancy-battery-show-percentage t))))
 
 (defun spacemacs-ui-visual/init-fill-column-indicator ()
   (use-package fill-column-indicator
@@ -56,102 +43,6 @@
         :evil-leader "tf"))
     :config
     (spacemacs|diminish fci-mode " ⓕ" " f")))
-
-(defun spacemacs-ui-visual/init-golden-ratio ()
-  (use-package golden-ratio
-    :defer t
-    :init
-    (progn
-      (setq spacemacs-window-manipulation-transient-state-add-bindings
-            '(("g" spacemacs/toggle-golden-ratio)))
-      (spacemacs|add-toggle golden-ratio
-        :status golden-ratio-mode
-        :on (golden-ratio-mode) (golden-ratio)
-        :off (golden-ratio-mode -1) (balance-windows)
-        :documentation "Resize the focused window using the golden ratio."
-        :evil-leader "tg"))
-    :config
-    (progn
-      ;; golden-ratio-exclude-modes
-      (dolist (m '("bs-mode"
-                   "calc-mode"
-                   "ediff-mode"
-                   "dired-mode"
-                   "gud-mode"
-                   "gdb-locals-mode"
-                   "gdb-registers-mode"
-                   "gdb-breakpoints-mode"
-                   "gdb-threads-mode"
-                   "gdb-frames-mode"
-                   "gdb-inferior-io-mode"
-                   "gdb-disassembly-mode"
-                   "gdb-memory-mode"
-                   "speedbar-mode"
-                   ))
-        (add-to-list 'golden-ratio-exclude-modes m))
-
-      (add-to-list 'golden-ratio-exclude-buffer-regexp "^\\*[hH]elm.*")
-
-      ;; golden-ratio-extra-commands
-      (dolist (f '(ace-window
-                   ace-delete-window
-                   ace-select-window
-                   ace-swap-window
-                   ace-maximize-window
-                   avy-pop-mark
-                   buf-move-left
-                   buf-move-right
-                   buf-move-up
-                   buf-move-down
-                   evil-avy-goto-word-or-subword-1
-                   evil-avy-goto-line
-                   evil-window-delete
-                   evil-window-split
-                   evil-window-vsplit
-                   evil-window-left
-                   evil-window-right
-                   evil-window-up
-                   evil-window-down
-                   evil-window-bottom-right
-                   evil-window-top-left
-                   evil-window-mru
-                   evil-window-next
-                   evil-window-prev
-                   evil-window-new
-                   evil-window-vnew
-                   evil-window-rotate-upwards
-                   evil-window-rotate-downwards
-                   evil-window-move-very-top
-                   evil-window-move-far-left
-                   evil-window-move-far-right
-                   evil-window-move-very-bottom
-                   quit-window
-                   winum-select-window-0-or-10
-                   winum-select-window-1
-                   winum-select-window-2
-                   winum-select-window-3
-                   winum-select-window-4
-                   winum-select-window-5
-                   winum-select-window-6
-                   winum-select-window-7
-                   winum-select-window-8
-                   winum-select-window-9
-                   windmove-left
-                   windmove-right
-                   windmove-up
-                   windmove-down))
-        (add-to-list 'golden-ratio-extra-commands f))
-
-      ;; golden-ratio-exclude-buffer-names
-      (dolist (n '(" *NeoTree*"
-                   "*LV*"
-                   " *which-key*"))
-        (add-to-list 'golden-ratio-exclude-buffer-names n))
-
-      (add-to-list 'golden-ratio-inhibit-functions
-                   'spacemacs/no-golden-ratio-guide-key)
-
-      (spacemacs|diminish golden-ratio-mode " ⓖ" " g"))))
 
 (defun spacemacs-ui-visual/init-hl-todo ()
   (use-package hl-todo
