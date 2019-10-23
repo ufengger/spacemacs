@@ -16,7 +16,6 @@
         flx-ido
         (info+ :location local)
         open-junk-file
-        paradox
         restart-emacs
         winum))
 
@@ -159,40 +158,6 @@ When ARG is non-nil search in junk files."
                (let (helm-ff-newfile-prompt-p)
                  (helm-find-files-1 fname))))))
     (spacemacs/set-leader-keys "fJ" 'spacemacs/open-junk-file)))
-
-(defun spacemacs-ui/init-paradox ()
-  (use-package paradox
-    :commands paradox-list-packages
-    :init
-    (progn
-      (setq paradox-execute-asynchronously nil)
-      (defun spacemacs/paradox-list-packages ()
-        "Load depdendencies for auth and open the package list."
-        (interactive)
-        (require 'epa-file)
-        (require 'auth-source)
-        (when (and (not (boundp 'paradox-github-token))
-                   (file-exists-p "~/.authinfo.gpg"))
-          (let ((authinfo-result (car (auth-source-search
-                                       :max 1
-                                       :host "github.com"
-                                       :port "paradox"
-                                       :user "paradox"
-                                       :require '(:secret)))))
-            (let ((paradox-token (plist-get authinfo-result :secret)))
-              (setq paradox-github-token (if (functionp paradox-token)
-                                             (funcall paradox-token)
-                                           paradox-token)))))
-        (paradox-list-packages nil))
-
-      (evilified-state-evilify paradox-menu-mode paradox-menu-mode-map
-        "H" 'paradox-menu-quick-help
-        "J" 'paradox-next-describe
-        "K" 'paradox-previous-describe
-        "L" 'paradox-menu-view-commit-list
-        "o" 'paradox-menu-visit-homepage)
-      (spacemacs/set-leader-keys
-        "ak" 'spacemacs/paradox-list-packages))))
 
 (defun spacemacs-ui/init-restart-emacs()
   (use-package restart-emacs
