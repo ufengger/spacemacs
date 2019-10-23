@@ -11,7 +11,6 @@
 
 (setq spacemacs-ui-packages
       '(ace-link
-        (centered-cursor :location local)
         desktop
         (doc-view :location built-in)
         flx-ido
@@ -55,32 +54,6 @@
           (when res
             (goto-char (1+ res))
             (widget-button-press (point))))))))
-
-(defun spacemacs-ui/init-centered-cursor ()
-  (use-package centered-cursor-mode
-    :commands (centered-cursor-mode
-               global-centered-cursor-mode)
-    :init
-    (progn
-      (spacemacs|add-toggle centered-point
-        :mode centered-cursor-mode
-        :documentation
-        "Keep point at the center of the window."
-        :evil-leader "t-")
-      (spacemacs|add-toggle centered-point-globally
-        :mode global-centered-cursor-mode
-        :documentation
-        "Keep point at the center of the window globally."
-        :evil-leader "t C--"))
-    :config
-    (progn
-      (setq ccm-recenter-at-end-of-file t
-            ccm-ignored-commands '(mouse-drag-region
-                                   mouse-set-point
-                                   widget-button-click
-                                   scroll-bar-toolkit-scroll
-                                   evil-mouse-drag-region))
-      (spacemacs|diminish centered-cursor-mode " ⊝" " -"))))
 
 (defun spacemacs-ui/init-desktop ()
   (use-package desktop
