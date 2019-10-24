@@ -22,7 +22,6 @@
         evil-mc
         evil-nerd-commenter
         evil-matchit
-        evil-numbers
         evil-search-highlight-persist
         evil-surround
         ;; Temporarily disabled, pending the resolution of
@@ -155,23 +154,6 @@
 (defun spacemacs-evil/init-evil-matchit ()
   (use-package evil-matchit
     :defer t))
-
-(defun spacemacs-evil/init-evil-numbers ()
-  (use-package evil-numbers
-    :config
-    (progn
-      (spacemacs|define-transient-state evil-numbers
-        :title "Evil Numbers Transient State"
-        :doc "\n[_+_/_=_] increase number  [_-_] decrease  [0..9] prefix  [_q_] quit"
-        :bindings
-        ("+" evil-numbers/inc-at-pt)
-        ("=" evil-numbers/inc-at-pt)
-        ("-" evil-numbers/dec-at-pt)
-        ("q" nil :exit t))
-      (spacemacs/set-leader-keys
-        "n+" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
-        "n=" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
-        "n-" 'spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt))))
 
 (defun spacemacs-evil/init-evil-search-highlight-persist ()
   (use-package evil-search-highlight-persist
