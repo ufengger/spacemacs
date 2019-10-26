@@ -85,7 +85,7 @@
     :defer t
     :init
     (progn
-      (setq bookmark-default-file (concat spacemacs-cache-directory "bookmarks")
+      (setq bookmark-default-file "~/Nutstore/bookmarks"
             ;; autosave each change
             bookmark-save-flag 1)
       (spacemacs/set-leader-keys "fb" 'bookmark-jump))))
